@@ -4,14 +4,24 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>//
 
 /*For permite crear un proceso desde otro proceso
 */
+void hand_child(int sig) // esto es lo que se ejecuta cuando llega la señal
+{
+	write(1,"llego sigchild!!\n",18);
+	wait(NULL);
+}
 int main(void)
 {
 	pid_t pid; //definición de la variable
-	int rv;
-	int sarasa;
+
+	struct sigaction sa;
+	sa.sa_handler = hand_child;  
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+
 	switch(pid = fork()) // pide hacer el fork- creo un proceso igual apartir de esta linea
 	{      //pid recibe el id del proceso
 		case -1:
@@ -25,21 +35,27 @@ int main(void)
 		printf(" CHILD: My PID is %d\n", getpid());
 		printf(" CHILD: My parent's PID is %d\n", getppid());
 		printf(" CHILD: Enter my exit status (make it small): ");
-		scanf(" %d", &rv);
+		sleep(5);
 		printf(" CHILD: I'm outta here!\n");
-		exit(rv);//similar a return, devuelve el rv (el numero que ingresamos)
+		exit(0);//similar a return, devuelve el rv (el numero que ingresamos)
 		break;
 
 
 		default://aqui es donde viene en el caso del padre
+		if (sigaction(SIGCHLD,&sa,NULL)==-1) // configurar para SIGCHLD la estructura sa
+    	{
+        	perror("sigaction");
+        	exit(1);
+    	}
 		printf("PARENT: This is the parent process!\n");
 		printf("PARENT: My PID is %d\n", getpid());
 		printf("PARENT: My childs PID is %d\n", pid);
-		//con wait pasa a estado interruptible
-		wait(&sarasa); /* el padre recibe el valor de retorno del hijo
-		 se quedará aqui hasta que el hijo retorne el valor
-		 si el padre no ejecuta wait el hijo queda zombie*/
-		printf("PARENT: My child's exit status is: %d\n", WEXITSTATUS(sarasa));
+		while (1)
+		{
+			printf("trabajando...\n");
+			sleep(1);
+		}
+		
 		printf("PARENT: I'm outta here!\n");
 	}
 }
