@@ -6,10 +6,11 @@
 #include <sys/wait.h>
 #include <signal.h>//
 
-/*For permite crear un proceso desde otro proceso
+/*Agregamos un handler para recibir la señal del hijo sin necesidad de interrumpir
+la rutina de padre, notese que no es necesario poner la configuración sigaction dentro del while true
 */
 void hand_child(int sig) // esto es lo que se ejecuta cuando llega la señal
-{
+{   //write(1,,) el uno es porque estamos escribiendo en el standart output
 	write(1,"llego sigchild!!\n",18);
 	wait(NULL);
 }
