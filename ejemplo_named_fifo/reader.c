@@ -38,7 +38,7 @@ int main(void)
 	do
 	{
         /* read data into local buffer */
-		if ((bytesRead = read(fd, inputBuffer, BUFFER_SIZE)) == -1)
+		if ((bytesRead = read(fd, inputBuffer, BUFFER_SIZE-1)) == -1)
         {
 			perror("read");
         }
