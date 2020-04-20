@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <stdint.h>
 
-#define FIFO_NAME "myfifo"
+#define FIFO_NAME "myfifo" // tiene que compartir el mismo nombre
 #define BUFFER_SIZE 300
 
 int main(void)

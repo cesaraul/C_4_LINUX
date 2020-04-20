@@ -17,14 +17,19 @@ int main(void)
     char outputBuffer[BUFFER_SIZE];
 	uint32_t bytesWrote;
 	int32_t returnCode, fd;
-
-    /* Create named fifo. -1 means already exists so no action if already exists */
+    
+    // en su mayoria los errores son negativos 
+    // en este caso error -1 indica que ya existe la cola
+    //lo ignoramos porque puede ser otro usuario la pudo haber creado y solo necesito usarla
+    // por defecto el umask esta 0022
+    // por ello debemos cambiarlo 
     if ( (returnCode = mknod(FIFO_NAME, S_IFIFO | 0666, 0) ) < -1 )
     {
         printf("Error creating named fifo: %d\n", returnCode);
         exit(1);
     }
 
+    // en este caso si consideramos el error <0
     /* Open named fifo. Blocks until other process opens it */
 	printf("waiting for readers...\n");
 	if ( (fd = open(FIFO_NAME, O_WRONLY) ) < 0 )
