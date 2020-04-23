@@ -91,7 +91,7 @@ while(1)
 			printf( "conecction closed\n" );
 			close( conx_socket );
 			pthread_mutex_lock(&mutex_net);
-			conx_socket= 0 ; //=====error 1
+			//conx_socket= 0 ; //=====error 1
 
 			pthread_mutex_unlock(&mutex_net);
 
