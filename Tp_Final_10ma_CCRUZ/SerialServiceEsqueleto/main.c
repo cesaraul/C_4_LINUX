@@ -119,7 +119,7 @@ while(1)
 
 		len = serial_receive( Buffer, BUFFER_SIZE );
 
- 		if( len > 0 )
+ 		if( len > 0 && conx_socket > 0 )
 		{
 			Buffer[ len - 2 ] = '\0';
 			printf( "received by uart %s\n", Buffer );
