@@ -222,10 +222,8 @@ int main()
  		printf( "wating for conecctions...\n" );
 		addrlen = sizeof( struct sockaddr_in );
 
-		//pthread_mutex_lock(&mutex_net);
-		conx_socket = accept( sv_socket, ( struct sockaddr * )&client_address, &addrlen );
-		//pthread_mutex_unlock(&mutex_net);
-
+ 		conx_socket = accept( sv_socket, ( struct sockaddr * )&client_address, &addrlen );
+ 
 		if ( conx_socket == -1 )
 		{	
 			if (pthread_cancel(threadI)!=0)
