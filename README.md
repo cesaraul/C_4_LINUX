@@ -28,3 +28,21 @@ Se pone en cero la memoria solicitada antes de entregarla, se asigna NULL al pun
 ## 5 uart Manager corrección de errores
 
 ### Agregados onRxTimeoutCallback,onTxTimeoutCallback
+
+
+## 6 sep.c
+se agregan funcionalidades a sepGet. Se modifica la estructura sepHandle_t.	a17ff17	Ignacio Majul <imajul89@gmail.com>	Apr 4, 2020 at 11:16
+
+### Agregados sepInit,sepGet,sepPut
+
+## 7 correcciones sep.c
+
+se modifica sepGet	ec49361	Ignacio Majul <imajul89@gmail.com>	Apr 4, 2020 at 11:34
+
+### correcciones en sepGet
+
+## 8 sep & app
+
+se actualiza sepGet y app.c	1fff247	Ignacio Majul <imajul89@gmail.com>	Apr 4, 2020 at 11:48
+
+### actualizaciones sepGet & sepPut
